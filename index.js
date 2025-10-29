@@ -1,6 +1,7 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const path = require('path');
 const Blog = require("./models/blog")
 const userRoute = require("./routes/user");
@@ -10,7 +11,7 @@ const cookieParser = require("cookie-parser");
 const { checkforauthentication } = require('./middlewares/authentication');
 
 mongoose
-.connect("mongodb://localhost:27017/blogging")
+.connect(process.env.MONGO_URL)
 .then(() => {
     console.log("MongoDb Connected");
     app.listen(PORT, () => console.log(`Server started at PORT ${PORT}`));
